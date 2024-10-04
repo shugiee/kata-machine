@@ -1,5 +1,5 @@
-function hasUnvisitedNodes(visitedNodes: boolean[]) {
-    return visitedNodes.includes(false);
+function hasUnvisitedNodes(visitedNodes: boolean[], dists: number[]) {
+    return visitedNodes.some((s, i) => !s && dists[i] < Infinity);
 }
 
 function getLowestUnvisitedNode(visitedNodes: boolean[], dists: number[]) {
@@ -25,7 +25,7 @@ export default function dijkstra_list(
         const prev = new Array(arr.length).fill(-1);
         dists[source] = 0;
 
-        while (hasUnvisitedNodes(visitedNodes)) {
+        while (hasUnvisitedNodes(visitedNodes, dists)) {
             const currNode = getLowestUnvisitedNode(visitedNodes, dists);
             if (currNode === -1) {
                 throw new Error("Couldn't find a lowest unvisited node!");
